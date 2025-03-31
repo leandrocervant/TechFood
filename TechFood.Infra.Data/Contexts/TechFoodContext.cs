@@ -53,7 +53,7 @@ namespace TechFood.Infra.Data.Contexts
             domainEvents.ForEach(eventsQueue.Enqueue);
 
             // store the queue in the http context
-            _httpContextAccessor.HttpContext.Items["EventsQueue"] = eventsQueue;
+            _httpContextAccessor.HttpContext.Items[Application.Common.EventualConsistency.Mediator.EventsQueueKey] = eventsQueue;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

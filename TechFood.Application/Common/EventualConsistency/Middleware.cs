@@ -18,10 +18,11 @@ namespace TechFood.Application.Common.EventualConsistency
             {
                 try
                 {
-                    if (context.Items.TryGetValue("EventsQueue", out var value) &&
+                    if (
+                        context.Items.TryGetValue(Mediator.EventsQueueKey, out var value) &&
                         value is Queue<INotification> eventsQueue)
                     {
-                        var publisher = context.RequestServices.GetRequiredKeyedService<IMediator>("mediatR");
+                        var publisher = context.RequestServices.GetRequiredKeyedService<IMediator>(Mediator.ServiceKey);
 
                         while (eventsQueue!.TryDequeue(out var domainEvent))
                         {
